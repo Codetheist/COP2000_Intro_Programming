@@ -4,73 +4,122 @@
 //Class: Tuesday 6:30pm-9pm
 
 #include <iostream>
-#include <iomanip>
+#include <string>
 using namespace std;
 
-class racers_time {
-
-  public:
-    /*void speed_racer_a(racer_a_name, racer_time) {
-      // code
-    }
-
-    void speed_racer_b(racer_b_name, racer_time) {
-      // code
-    }
-
-    void speed_racer_c(racer_c_name, racer_time) {
-      // code
-    }
-
-    void results_for_the_winner(speed_racer_a, speed_racer_b, speed_racer_c) {
-      // code
-    }*/
-};
-
-string racer_a_name, racer_b_name, racer_c_name;
-float racer_time;
-
+//Function Prototype
+void welcome();
+void getRaceTime(string &, double &);
+void findWinner(string, string, string, double, double, double);
+double raceAverage(double, double, double);
 
 int main() {
 
-  //Display
-  cout << "***********************************************" << endl << endl;
-  cout << setw(4) << "Welcome to Race Results Program" << endl;
-  cout << setw(2) << "You Asked to Enter the Three Racers Names" << endl;
-  cout << setw(2) << "and Their Associated Race Time" << endl << endl;
-  cout << "***********************************************" << endl << endl;
+  string racer_a_name, racer_b_name, racer_c_name;
+  double racer_a_time = 0;
+  double racer_b_time = 0;
+  double racer_c_time = 0;
+  double average_race_times = 0;
+  string user_input_racers_name;
+  double user_input_racers_time = 0;
+  double race_results = 0;
 
-  cout << setw(2) << "Please enter a real number for Race TIme (the Race Time Must be > 0)." << endl;
-  cout << setw(2) << "Program Develop by: Antoine Gustave" << endl << endl;
+
+  //Display
+  welcome();
 
   //Asking the user
-  cout << "Please enter the racer's first name > ";
-  cin >> racer_a_name;
+  getRaceTime(racer_a_name, racer_a_time);
+  cout << endl;
+  getRaceTime(racer_b_name, racer_b_time);
+  cout << endl;
+  getRaceTime(racer_c_name, racer_c_time);
+  cout << endl;
+
+  //Calculating the winner
+  findWinner(racer_a_name, racer_b_name, racer_c_name, racer_a_time, racer_b_time, racer_c_time);
+
+  //Calculating the average time
+  race_results = raceAverage(racer_a_time, racer_b_time, racer_c_time);
+  cout << "Overall Race Time Average: " << race_results << endl;
 
   return 0;
 }
+
+void getting_racers_info(string &user_input_racers_name, double &user_input_racers_time) {
+
+  cout << "Please enter the racer's first name > ";
+  cin >> user_input_racers_name;
+  cout << "Please enter the racer's time > ";
+  cin >> user_input_racers_time;
+
+  while (user_input_racers_time <= 0) {
+
+    cout << "Invalid time input...time must be greater than 0" << endl;
+
+    cout << "Please enter the racer's time > ";
+    cin >> user_input_racers_time;
+
+  }
+}
+
+void findWinner(string racer_a_name, string racer_b_name, string racer_c_name, double racer_a_time, double racer_b_time, double racer_c_time) {
+
+  if ((racer_a_time < racer_b_time) && (racer_a_time < racer_c_time)) {
+
+      cout << "Congradulations " << racer_a_name <<"!!!" << " You are the winner!!" << endl;
+      cout << "***** Your wining time is: " << racer_a_time <<" *****" << endl << endl;
+
+    } else if ((racer_b_time < racer_a_time) && (racer_b_time < racer_c_time)) {
+
+      cout << "Congradulations " << racer_b_name <<"!!!" << " You are the winner!!" << endl;
+      cout << "***** Your wining time is: " << racer_b_time <<" *****" << endl << endl;
+
+    } else if ((racer_c_time < racer_a_time) && (racer_c_time < racer_b_time)) {
+
+      cout << "Congradulations " << racer_c_name <<"!!!" << " You are the winner!!" << endl;
+      cout << "***** Your wining time is: " << racer_c_time <<" *****" << endl << endl;
+
+    } else if ((racer_b_time < racer_a_time) && (racer_b_time == racer_c_time)) {
+
+      cout << "We have a TIE " << racer_b_name << " and " << racer_c_name <<" win!!" << endl;
+      cout << "***** Your wining time is: " << racer_b_time <<" *****" << endl << endl;
+
+    } else if ((racer_c_time < racer_b_time) && (racer_c_time == racer_a_time)) {
+
+      cout << "We have a TIE " << racer_c_name << " and " << racer_a_name <<" win!!" << endl;
+      cout << "***** Your wining time is: " << racer_a_time <<" *****" << endl << endl;
+
+    } else if ((racer_b_time < racer_c_time) && (racer_b_time == racer_a_time)) {
+
+      cout << "We have a TIE " << racer_b_name << " and " << racer_a_name <<" win!!" << endl;
+      cout << "***** Your wining time is: " << racer_a_time <<" *****" << endl << endl;
+
+    } else {
+
+      cout << "It seems that we have a 3-way tie." << endl;
+      cout << "***** Your wining time is: " << racer_a_time <<" *****" << endl << endl;
+  }
+}
+
+double raceAverage(double racer_a_time, double racer_b_time, double racer_c_time) {
+
+  double average_race_times = (racer_a_time + racer_b_time + racer_c_time) / 3;
+
+  return average_race_times;
+}
+
+void welcome() {
+
+  cout << "***********************************************" << endl << endl;
+  cout << "Welcome to Race Results Program" << endl;
+  cout << "You Asked to Enter the Three Racers Names" << endl;
+  cout << "and Their Associated Race Time" << endl;
+  cout << "Please enter a real number for Race TIme (the Race Time Must be > 0)." << endl;
+  cout << "Program Develop by: Antoine Gustave" << endl << endl;
+  cout << "***********************************************" << endl << endl;
+}
+
 /*Algorithm Used
-	1. Write out the persons request
-	2. Come up with the names for the variables and set the values
-		const double gold_member_fee = .01;
-		const double silver_member_fee = .02;
-		const double bronze_member_fee = .04;
 
-		string olympic_runnerup = "Silver";
-		string olympic_a_for_effort = "Bronze";
-		string olympic_failure = "Quit";
-
-		int power_level = 4;
-		int cost_of_fee_per_yr;
-
-		double initial_gym_fee = 1200.00;
-		double total_fee = 0.0;
-	3. Display my menu to the potential clients
-	4. Ask for their power level and input their levels
-	5. Run this while loop
-	6. Set switch to different levels base on users power level
-	7. Assigned the correct function to each switch
-	8. Create a for loop to display years
-	9. Loop through through the calculation
-	10. Quit after power level is over 9000!!!
 */
