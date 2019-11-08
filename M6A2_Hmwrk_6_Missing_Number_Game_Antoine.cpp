@@ -1,6 +1,6 @@
 //Antoine Gustave
-//Race Results Program
-//Date: 10/12/19
+//Missing Number Game
+//Date: 11/12/19
 //Class: Tuesday 6:30pm-9pm
 
 #include <iostream>
