@@ -16,11 +16,13 @@ bool testWinner(int[], int[]);
 
 int main() {
 
-  const int ROW = 3, COL =4;
+  const int ROW = 3, COL =4, users_guesses = 3;
+  bool isGameOver = false;
 
-  randomNum = ( rand( ) % ( maxValue  minValue + 1 ) ) + minValue;
+  randomNum = ( rand( ) % ( maxValue - minValue + 1 ) ) + minValue;
 
   int user_input = 0;
+  int user_guess = 0;
   int board_selected = -1;
 
   instructions();
@@ -28,7 +30,10 @@ int main() {
   board_selected = beginGame();
 
   // do below inside of loop
-  displayBoard(/*need to pass an array here*/);
+  do {
+    displayBoard(board_selected);
+  } while(isGameOver == false);
+
 
   // get user's answer and store in variable
   testWinner(/*see HW description*/);
@@ -48,9 +53,9 @@ void instructions() {
 
 void displayBoard(int board[][3]) {
 
-  // i am passed a randomly chosen board and output it to the screen nicely
-
-  // formatted (display a blank or question mark for missing value)
+  switch (/* expression */) {
+    case /* value */:
+  }
 
 }
 
