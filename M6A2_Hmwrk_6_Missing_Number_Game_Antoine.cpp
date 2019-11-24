@@ -18,9 +18,11 @@ int main() {
 
   const int ROW = 3, COL = 4, users_guesses = 3;
   bool isGameOver = false;
-  int board_game_1[ROW][COL] = {90, 9, 45, 66, 12, 48, 34, 7, 70, 44, '?', 26};
-  int board_game_2[ROW][COL] = {28, 10, 55, 89, 17, 98, 22, 4, 31, 69, '?', 78};
-  int board_game_3[ROW][COL] = {38, 11, 83, 15, 6, 33, 10, 2, 20, 86, '?', 95};
+  int board_game_1[ROW][COL] = {90, 9, 45, 66, 12, 48, 34, 7, 70, 44, NULL, 26};
+  int board_game_2[ROW][COL] = {28, 10, 55, 89, 17, 98, 22, 4, 31, 69, NULL, 78};
+  int board_game_3[ROW][COL] = {38, 11, 83, 15, 6, 33, 10, 2, 20, 86, NULL, 95};
+
+  
 
   randomNum = ( rand( ) % ( maxValue - minValue + 1 ) ) + minValue;
 
