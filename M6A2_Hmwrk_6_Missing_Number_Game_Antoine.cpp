@@ -6,83 +6,269 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-#include <vector>
+//#include <vector>
 using namespace std;
 
 void instructions();
-void displayRandomBoard(int[]);
-int beginGame(int[]);
-bool testWinner(int[], int[]);
+void displayBoard(int[]);
+int beginGame(bool[], int, int);
+bool testWinner(int, int, int[]);
 
 int main() {
 
-  const int ROW = 3, COL = 4, users_guesses = 3;
+  const int MAX_VALUE = 3;
+  const int MIN_VALUE = 3;
+  const int ROW = 4, COL = 3, user_guesses = 3;
+
   bool isGameOver = false;
-  int board_game_1[ROW][COL] = {90, 9, 45, 66, 12, 48, 34, 7, 70, 44, NULL, 26};
-  int board_game_2[ROW][COL] = {28, 10, 55, 89, 17, 98, 22, 4, 31, 69, NULL, 78};
-  int board_game_3[ROW][COL] = {38, 11, 83, 15, 6, 33, 10, 2, 20, 86, NULL, 95};
 
-  
+  bool playedBoards[3] = {false, false, false};
 
-  randomNum = ( rand( ) % ( maxValue - minValue + 1 ) ) + minValue;
+  int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
+
+  int board_game_1[ROW][COL] = {{90, 9, 45}, {66, 12, 48}, {34, 7, 70}, {44, 0, 26}};
+  int board_game_2[ROW][COL] = {{28, 10, 55}, {89, 17, 98}, {22, 4, 31}, {69, 0, 78}};
+  int board_game_3[ROW][COL] = {{38, 11, 83}, {15, 6, 33}, {10, 2, 20}, {86, 0, 95}};
+
+  int ans = 0;
+  int boardNum = 0;
+  int ansboard[3] = {14, 15, 8};
+
+  int game_board[ROW][COL];
 
   int user_input = 0;
+  int win_count = 0;
   int user_guess = 0;
   int board_selected = -1;
 
+  //instructions();
+
+  board_selected = beginGame(playedBoards, MAX_VALUE, MIN_VALUE);
+
   instructions();
 
-  board_selected = beginGame();
-
-  /*// do below inside of loop
+  // do below inside of loop
   do {
-    displayBoard(board_selected);
-  } while(isGameOver == false);*/
 
+    displayBoard(game_board[3]);
 
-  // get user's answer and store in variable
-  //testWinner(/*see HW description*/);
+    cout << endl << "Enter your guess or 0 to exit >> ";
+    cin >> user_input;
 
-  return 0
+    if(user_input == 0) {
 
-}
+      cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
 
-void instructions() {
+      return 0;
 
-  cout << "*****************************************************************" << endl;
-  cout << setw(38) << "MISSING NUMBERS GAME" << endl;
-  cout << setw(39) << "A fun brain game..." << endl;
-  cout << setw(62) << "Please Enter a whole number to guess the missing number..." << endl;
-  cout << setw(50) << "Program Developed by: Antoine Gustave" << endl;
-  cout << "*****************************************************************" << endl;
+      } else {
 
-}
+        while(user_input < 0)
 
-void displayBoard(int board[][3]) {
+        cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
+        cin >> user_input;
+    }
 
-  for (int i = 0; i < ROW; i++) {
+    // get user's answer and store in variable
+    testWinner(user_input, boardNum, ansboard);
+    if(isGameOver != false) {
 
-    for (int j = 0; j < COL; j++) {
+      switch (board_selected) {
 
-      cout << board_game_1;
+        case 0:
+        win_count++;
+        playedBoards[0] = true;
+        //break;
+        }
+
+      } else if (isGameOver != false && (playedBoards[0] != false || playedBoards[1] != false || playedBoards[2] != false)) {
+
+        cout << "Do you wush to play again?? Enter 0 to Exit or any number to continue...>> " << endl;
+        cin >> user_input;
+
+      } else if (user_input == 0) {
+
+        cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
+        return 0;
+
+      } else {
+
+        while(user_input < 0)
+
+        cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
+        cin >> user_input;
+      }
+
+      if(user_input != 0) {
+
+        beginGame(playedBoards, MAX_VALUE, MIN_VALUE);
+
+      } else {
+
+        user_guess++;
+
+        if (user_guess > user_guesses ) {
+
+          cout << "Do you wush to play again?? Enter 0 to Exit or any number to continue...>>" << endl;
+          cin >> user_input;
+
+        } else if (user_input == 0) {
+
+          cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
+
+          return 0;
+
+        } else {
+
+          while(user_input < 0)
+
+          cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
+          cin >> user_input;
+
+        }
+
+        if(user_input != 0) {
+          beginGame(playedBoards, MAX_VALUE, MIN_VALUE);
+        }
+
+      }
+    } while (isGameOver == false/*playedBoards[0] != false || playedBoards[1] != false || playedBoards[2] != false*/);
+
+    cout << "*** You are the number guessing Champion!! CONGRATULATIONS!! ***" << endl;
+
+    return 0;
+  }
+
+  void instructions() {
+    cout << "*****************************************************************" << endl;
+    cout << setw(38) << "MISSING NUMBERS GAME" << endl;
+    cout << setw(39) << "A fun brain game..." << endl;
+    cout << setw(62) << "Please Enter a whole number to guess the missing number..." << endl;
+    cout << setw(50) << "Program Developed by: Antoine Gustave" << endl;
+    cout << "*****************************************************************" << endl;
+  }
+
+  void displayBoard(int board[][3], int row_size, int col_size) {
+
+    int randomNum;
+    const int ROW = 4, COL = 3;
+    row_size = 4;
+    col_size = 3;
+    int board_game_1[ROW][COL], board_game_2[ROW][COL], board_game_3[ROW][COL];
+
+    switch (randomNum) {
+
+      case 0:
+
+      for (int i = 0; i < row_size; i++) {
+
+        for (int j = 0; j < col_size; j++) {
+
+          cout /* << setw()*/ << board_game_1[i][j] << " ";
+
+        }
+
+        cout << endl;
+      }
+
+      case 1:
+
+      for (int i = 0; i < row_size; i++) {
+
+        for (int j = 0; j < col_size; j++) {
+
+          cout /* << setw()*/ << board_game_2[i][j];
+
+        }
+
+        cout << endl;
+
+      }
+
+      case 2:
+
+      for (int i = 0; i < row_size; i++) {
+
+        for (int j = 0; j < col_size; j++) {
+
+          cout /* << setw()*/ << board_game_3[i][j];
+        }
+
+        cout << endl;
+      }
     }
   }
 
-  //switch (/* expression */) {
-    //case /* value */:
-  }
-
-}
-
-int beginGame(int playedBoards[]) {
-
   /*This function's only purpose is to choose randomly a previously-unchosen board (by looking at the arg passed to it and selecting randomly again when needed.)
   Once that unique value has been chosen, use the return statement to notify the rest of the program.*/
+  int beginGame(int playedBoards[]) {
 
-//}
+    int randomNum = 0;
+    int boardNum = 0;
+    const int MAX_VALUE = 3;
+    const int MIN_VALUE = 3;
+    return randomNum;
 
-bool testWinner() {
+    switch (randomNum) {
 
-  //
+      case 0:
 
-}
+      do {
+
+        int randomNum =( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
+
+      } while(playedBoards[0] != false);
+
+      return randomNum;
+
+      randomNum = boardNum;
+
+      break;
+
+      case 1:
+
+      do {
+
+        int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
+
+      } while(playedBoards[1] != false);
+
+      return randomNum;
+
+      randomNum = boardNum;
+
+      break;
+
+      case 2:
+
+      do {
+
+        int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
+
+      } while(playedBoards[2] != false);
+
+      return randomNum;
+
+      randomNum = boardNum;
+
+      break;
+    }
+  }
+
+  bool testWinner(int &ans, int boardNum, int ansboard[]) {
+
+    int user_input;
+
+    if (user_input == ansboard[boardNum]) {
+
+      cout << "You are a number genius!!" << endl;
+
+      return true;
+
+    } else {
+
+      cout << "I am sorry that was incorrect...";
+
+      return false;
+    }
+  }
