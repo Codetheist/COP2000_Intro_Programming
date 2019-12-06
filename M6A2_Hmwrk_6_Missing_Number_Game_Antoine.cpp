@@ -61,12 +61,12 @@ int main() {
 
       return 0;
 
-      } else {
+    } else {
 
-        while(user_input < 0)
+      while(user_input < 0)
 
-        cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
-        cin >> user_input;
+      cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
+      cin >> user_input;
     }
 
     // get user's answer and store in variable
@@ -78,197 +78,166 @@ int main() {
         case 0:
         win_count++;
         playedBoards[0] = true;
-        //break;
-        }
-
-      } else if (isGameOver != false && (playedBoards[0] != false || playedBoards[1] != false || playedBoards[2] != false)) {
-
-        cout << "Do you wush to play again?? Enter 0 to Exit or any number to continue...>> " << endl;
-        cin >> user_input;
-
-      } else if (user_input == 0) {
-
-        cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
-        return 0;
-
-      } else {
-
-        while(user_input < 0)
-
-        cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
-        cin >> user_input;
+        break;
       }
+
+    } else if (isGameOver != false && (playedBoards[0] != false || playedBoards[1] != false || playedBoards[2] != false)) {
+
+      cout << "Do you wush to play again?? Enter 0 to Exit or any number to continue...>> " << endl;
+      cin >> user_input;
+
+    } else if (user_input == 0) {
+
+      cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
+      return 0;
+
+    } else if(user_input < 0) {
+
+      cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
+      cin >> user_input;
+
+    } else {
 
       if(user_input != 0) {
 
         beginGame(playedBoards, MAX_VALUE, MIN_VALUE);
-
-      } else {
-
-        user_guess++;
-
-        if (user_guess > user_guesses ) {
-
-          cout << "Do you wush to play again?? Enter 0 to Exit or any number to continue...>>" << endl;
-          cin >> user_input;
-
-        } else if (user_input == 0) {
-
-          cout << "Tis' quite unfortunate perhaps after some training you should be ready to try again. Until next time. Farewell, my friend." << endl;
-
-          return 0;
-
-        } else {
-
-          while(user_input < 0)
-
-          cout << "Please enter a valid number; otherwise, forfeit the game." << endl;
-          cin >> user_input;
-
-        }
-
-        if(user_input != 0) {
-          beginGame(playedBoards, MAX_VALUE, MIN_VALUE);
-        }
-
       }
+
     } while (isGameOver == false/*playedBoards[0] != false || playedBoards[1] != false || playedBoards[2] != false*/);
 
     cout << "*** You are the number guessing Champion!! CONGRATULATIONS!! ***" << endl;
-
     return 0;
   }
+}
 
-  void instructions() {
-    cout << "*****************************************************************" << endl;
-    cout << setw(38) << "MISSING NUMBERS GAME" << endl;
-    cout << setw(39) << "A fun brain game..." << endl;
-    cout << setw(62) << "Please Enter a whole number to guess the missing number..." << endl;
-    cout << setw(50) << "Program Developed by: Antoine Gustave" << endl;
-    cout << "*****************************************************************" << endl;
-  }
+void instructions() {
+  cout << "*****************************************************************" << endl;
+  cout << setw(38) << "MISSING NUMBERS GAME" << endl;
+  cout << setw(39) << "A fun brain game..." << endl;
+  cout << setw(62) << "Please Enter a whole number to guess the missing number..." << endl;
+  cout << setw(50) << "Program Developed by: Antoine Gustave" << endl;
+  cout << "*****************************************************************" << endl;
+}
 
-  void displayBoard(int board[][3], int row_size, int col_size) {
+void displayBoard(int board[][3], int row_size, int col_size) {
 
-    int randomNum;
-    const int ROW = 4, COL = 3;
-    row_size = 4;
-    col_size = 3;
-    int board_game_1[ROW][COL], board_game_2[ROW][COL], board_game_3[ROW][COL];
+  int randomNum;
+  const int ROW = 4, COL = 3;
+  row_size = 4;
+  col_size = 3;
+  int board_game_1[ROW][COL], board_game_2[ROW][COL], board_game_3[ROW][COL];
 
-    switch (randomNum) {
+  switch (randomNum) {
 
-      case 0:
+    case 0:
 
-      for (int i = 0; i < row_size; i++) {
+    for (int i = 0; i < row_size; i++) {
 
-        for (int j = 0; j < col_size; j++) {
+      for (int j = 0; j < col_size; j++) {
 
-          cout /* << setw()*/ << board_game_1[i][j] << " ";
-
-        }
-
-        cout << endl;
-      }
-
-      case 1:
-
-      for (int i = 0; i < row_size; i++) {
-
-        for (int j = 0; j < col_size; j++) {
-
-          cout /* << setw()*/ << board_game_2[i][j];
-
-        }
-
-        cout << endl;
+        cout /* << setw()*/ << board_game_1[i][j] << " ";
 
       }
 
-      case 2:
+      cout << endl;
+    }
+    break;
 
-      for (int i = 0; i < row_size; i++) {
+    case 1:
 
-        for (int j = 0; j < col_size; j++) {
+    for (int i = 0; i < row_size; i++) {
 
-          cout /* << setw()*/ << board_game_3[i][j];
-        }
+      for (int j = 0; j < col_size; j++) {
 
-        cout << endl;
+        cout /* << setw()*/ << board_game_2[i][j];
       }
+
+      cout << endl;
     }
+    break;
+
+    case 2:
+
+    for (int i = 0; i < row_size; i++) {
+
+      for (int j = 0; j < col_size; j++) {
+
+        cout /* << setw()*/ << board_game_3[i][j];
+      }
+      cout << endl;
+    }
+    break;
   }
+}
 
-  /*This function's only purpose is to choose randomly a previously-unchosen board (by looking at the arg passed to it and selecting randomly again when needed.)
-  Once that unique value has been chosen, use the return statement to notify the rest of the program.*/
-  int beginGame(int playedBoards[]) {
+/*This function's only purpose is to choose randomly a previously-unchosen board (by looking at the arg passed to it and selecting randomly again when needed.)
+Once that unique value has been chosen, use the return statement to notify the rest of the program.*/
+int beginGame(int playedBoards[]) {
 
-    int randomNum = 0;
-    int boardNum = 0;
-    const int MAX_VALUE = 3;
-    const int MIN_VALUE = 3;
-    return randomNum;
+  int randomNum = 0;
+  int boardNum = 0;
+  const int MAX_VALUE = 3;
+  const int MIN_VALUE = 3;
 
-    switch (randomNum) {
+  switch (randomNum) {
 
-      case 0:
+    case 0:
 
-      do {
+    do {
 
-        int randomNum =( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
-
-      } while(playedBoards[0] != false);
-
-      return randomNum;
+      int randomNum =( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
 
       randomNum = boardNum;
 
-      break;
-
-      case 1:
-
-      do {
-
-        int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
-
-      } while(playedBoards[1] != false);
-
       return randomNum;
+
+    } while(playedBoards[0] != false);
+    break;
+
+    case 1:
+
+    do {
+
+      int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
 
       randomNum = boardNum;
 
-      break;
-
-      case 2:
-
-      do {
-
-        int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
-
-      } while(playedBoards[2] != false);
-
       return randomNum;
+
+    } while(playedBoards[1] != false);
+    break;
+
+    case 2:
+
+    do {
+
+      int randomNum = ( rand( ) % ( MAX_VALUE - MIN_VALUE + 1 ) ) + MIN_VALUE;
 
       randomNum = boardNum;
 
-      break;
-    }
+      return randomNum;
+
+    } while(playedBoards[2] != false);
+    break;
   }
 
-  bool testWinner(int &ans, int boardNum, int ansboard[]) {
+  return 0;
+}
 
-    int user_input;
+bool testWinner(int &ans, int boardNum, int ansboard[]) {
 
-    if (user_input == ansboard[boardNum]) {
+  int user_input;
 
-      cout << "You are a number genius!!" << endl;
+  if (user_input == ansboard[boardNum]) {
 
-      return true;
+    cout << "You are a number genius!!" << endl;
 
-    } else {
+    return true;
 
-      cout << "I am sorry that was incorrect...";
+  } else {
 
-      return false;
-    }
+    cout << "I am sorry that was incorrect...";
+
+    return false;
   }
+}
